@@ -1,9 +1,7 @@
 import sqlite3
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
 import alpaca_trade_api as tradeapi
 import config
-import tulipy
-import numpy
 import pandas as pd
 
 # API Connect
@@ -35,16 +33,24 @@ for row in rows:
     symbols.append(symbol)
     stock_dict[symbol] = row['id']
 
-    data = api.polygon.historic_agg_v2(symbol, multiplier='1', timespan='day', _from=startdate, to=enddate).df
-    print(f"processing symbol {symbol}")
-    print(data)
+chunk_size = 200
+for i in range(0, len(symbols), chunk_size):
+    symbol_chunk = symbols[i:i + chunk_size]
 
-    cursor.execute("""
-        INSERT INTO ohlc_data (dt, symbol, open, high, low, close, volume, vwap)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """, (enddate, symbols, data.open, data.high, data.low, data.close, data.volume, data.vwap))
+    data = api.polygon.historic_agg_v2(symbol_chunk, multiplier='1', timespan='day', _from=startdate, to=enddate)
 
-    connection.commit()
+    for symbol in data:
+        print(f"processing symbol {symbol}")
+
+        for bar in data[symbol]:
+            stock_id = stock_dict[symbol]
+
+            cursor.execute("""
+                        INSERT INTO ohlc_data (stock_id, dt, symbol, open, high, low, close, volume)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """, (stock_id, enddate, symbol, bar.o, bar.h, bar.l, bar.c, bar.v))
+
+connection.commit()
 
 
 

@@ -5,13 +5,15 @@ connection = sqlite3.connect(DB_FILE)
 
 cursor = connection.cursor()
 
-# Creates Table Called 'stock'
+# Creates Table Called 'assets'
 cursor.execute("""
-    CREATE TABLE IF NOT EXISTS stock (
-        id SERIAL PRIMARY KEY, 
-        symbol TEXT NOT NULL UNIQUE, 
-        name TEXT NOT NULL,
+    CREATE TABLE IF NOT EXISTS assets (
+        id SERIAL PRIMARY KEY,
+        class TEXT NOT NULL,
         exchange TEXT NOT NULL,
+        symbol TEXT NOT NULL UNIQUE, 
+        status TEXT NOT NULL,
+        marginable BOOLEAN NOT NULL,
         shortable BOOLEAN NOT NULL
         );
 """)
@@ -22,12 +24,11 @@ cursor.execute("""
         stock_id SERIAL PRIMARY KEY,
         dt TIMESTAMP NOT NULL,
         symbol TEXT NOT NULL,
-        open DECIMAL(2,2) NOT NULL,
-        high DECIMAL(2,2) NOT NULL,
-        low DECIMAL(2,2) NOT NULL,
-        close DECIMAL(2,2) NOT NULL,
+        open NUMERIC NOT NULL,
+        high NUMERIC NOT NULL,
+        low NUMERIC NOT NULL,
+        close NUMERIC NOT NULL,
         volume NUMERIC NOT NULL,
-        vwap DECIMAL(2,2) NOT NULL,
         CONSTRAINT fk_stock FOREIGN KEY(stock_id) REFERENCES stock(id)
     );
 """)

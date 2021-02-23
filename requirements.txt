@@ -1,15 +1,15 @@
 # data analysis libraries
-numpy
+numpy~=1.20.1
 scipy
-pandas
+pandas~=1.2.2
 pandas-datareader
 
 # technical analysis, indicator libraries
-ta
+ta~=0.7.0
 ta-lib
 bta-lib
 pandas-ta
-tulipy
+tulipy~=0.4.0
 
 # database connection, ORM
 psycopg2
@@ -26,21 +26,21 @@ robin-stocks
 intrinio-sdk
 polygon-api-client
 iexfinance
-yfinance
+yfinance~=0.1.55
 quandl
 alpha-vantage
 sec-edgar-downloader
 
 # visualization
 matplotlib
-plotly
+plotly~=4.14.3
 dash
 mplfinance
 jupyterlab
 pillow
 
 # backtesting
-backtrader
+backtrader~=1.9.76.123
 pyalgotrade
 bt
 
@@ -49,7 +49,7 @@ pyfolio
 finquant
 
 # web frameworks and extensions
-fastapi
+fastapi~=0.63.0
 flask
 flask-cors
 flask-login
@@ -64,7 +64,7 @@ gunicorn
 celery
 
 # networking
-requests
+requests~=2.25.1
 boto3
 urllib3
 websocket-client
@@ -86,3 +86,4 @@ scikit-learn
 keras
 torch
 opencv-python
+pytz~=2021.1

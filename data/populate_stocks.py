@@ -8,7 +8,7 @@ cursor = connection.cursor()
 
 api = tradeapi.REST(config.API_KEY, config.SECRET_KEY, base_url=config.API_URL)
 
-assets = api.list_assets(status=None, asset_class=None)
+assets = api.list_assets(status=None, asset_class=STOCK)
 
 for asset in assets:
     try:
