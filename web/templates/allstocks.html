@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Stock List</h1>
+
+        <form method="get">
+            <select name="filter">
+                <option value="">All Stocks</option>
+                <option {% if request.query_params.filter == 'new_closing_highs' %}selected="selected"{% endif %}
+                        value="new_closing_highs">New Closing Highs</option>
+                <option {% if request.query_params.filter == 'new_closing_lows' %}selected="selected"{% endif %}
+                        value="new_closing_lows">New Closing Lows</option>
+                <option {% if request.query_params.filter == 'rsi_overbought' %}selected="selected"{% endif %}
+                        value="rsi_overbought">RSI Overbought</option>
+                <option {% if request.query_params.filter == 'rsi_oversold' %}selected="selected"{% endif %}
+                        value="rsi_oversold">RSI Oversold</option>
+                <option {% if request.query_params.filter == 'above_sma_20' %}selected="selected"{% endif %}
+                        value="above_sma_20">Above 20 SMA</option>
+                <option {% if request.query_params.filter == 'below_sma_20' %}selected="selected"{% endif %}
+                        value="below_sma_20">Below 20 SMA</option>
+                <option {% if request.query_params.filter == 'above_sma_50' %}selected="selected"{% endif %}
+                        value="above_sma_50">Above 50 SMA</option>
+                <option {% if request.query_params.filter == 'below_sma_50' %}selected="selected"{% endif %}
+                        value="below_sma_50"> Below 50 SMA </option>
+            </select>
+            <input type="submit" />
+        </form>
+
+    <table class="ui striped table">
+      <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Price</th>
+            <th>Volume</th>
+            <th>RSI 14</th>
+            <th>SMA 20</th>
+            <th>SMA 50</th>
+        </tr>
+      </thead>
+      <tbody>
+       {% for stock in stocks %}
+       <tr>
+           <td><a href="/allstocks/stock/{{stock.symbol}}">{{ stock.symbol }}</a></td>
+           {% if indicator_values[stock.symbol] %}
+                {% if indicator_values[stock.symbol].close %}
+                    <td>{{ indicator_values[stock.symbol].close|round(2) }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+                {% if indicator_values[stock.symbol].volume %}
+                    <td>{{ indicator_values[stock.symbol].volume }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+                {% if indicator_values[stock.symbol].rsi_14 %}
+                    <td>{{ indicator_values[stock.symbol].rsi_14|round(2) }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+
+                {% if indicator_values[stock.symbol].sma_20 %}
+                    <td>{{ indicator_values[stock.symbol].sma_20|round(2) }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+
+                {% if indicator_values[stock.symbol].sma_50 %}
+                    <td>{{ indicator_values[stock.symbol].sma_50|round(2) }}</td>
+                {% else %}
+                    <td>N/A</td>
+                {% endif %}
+
+           {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
+
+<!--        <th>Time</th>-->
+<!--        <th>Symbol</th>-->
+<!--        <th>Price</th>-->
+<!--        <th>Volume Today</th>-->
+<!--        <th>Float</th>-->
+<!--        <th>Relative Volume (Daily)</th>-->
+<!--        <th>Relative Volume (5 min %)</th>-->
+<!--        <th>Gap(%)</th>-->
+<!--        <th>Change From Close (%)</th>-->
+<!--        <th>5min Change</th>-->
+<!--        <th>10min Change</th>-->
+<!--        <th>15min Change</th>-->
+<!--        <th>20 Day Range</th>-->
+<!--        <th>52 Week Position</th>-->
+<!--        <th>Todays Range</th>-->
+<!--        <th>News</th>-->
+<!--        <th>Strategy Name</th>-->

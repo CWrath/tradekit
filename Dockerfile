@@ -1,6 +1,6 @@
-FROM python:3.8
+FROM python:3.7
 
-MAINTAINER Part Time Larry "parttimelarry@gmail.com"
+MAINTAINER Cody Ward "codywardfilms@gmail.com"
 
 ADD . /app
 

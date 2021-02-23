@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>High Of Day Momentum Scanner</h1>
+
+<table class="ui striped table">
+    <thead>
+    <tr>
+        <th>Time</th>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Volume Today</th>
+        <th>Float</th>
+        <th>Relative Volume (Daily)</th>
+        <th>Relative Volume (5 min %)</th>
+        <th>Gap(%)</th>
+        <th>Change From Close (%)</th>
+        <th>5min Change</th>
+        <th>10min Change</th>
+        <th>15min Change</th>
+        <th>20 Day Range</th>
+        <th>52 Week Position</th>
+        <th>Todays Range</th>
+        <th>News</th>
+        <th>Strategy Name</th>
+    </tr>
+    </thead>
+    {% for symbol in symbols %}
+    <tr>
+        <td>
+          {{ symbol.created_at }}
+        </td>
+        <td>
+          {{ symbol.symbol }}
+        </td>
+        <td>
+          {{ order.filled_qty }}
+        </td>
+        <td>
+          {{ order.symbol }}
+        </td>
+        <td>
+          {{ order.filled_avg_price }}
+        </td>
+        <td>
+          {{ order.status }}
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

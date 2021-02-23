@@ -8,8 +8,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=tradekit
-      - POSTGRES_PASSWORD=yourpassword
+      - POSTGRES_USER=codywardfilms@gmail.com
+      - POSTGRES_PASSWORD=A\/3ng3d521
       - POSTGRES_DB=tradekit
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
